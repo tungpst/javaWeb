@@ -28,5 +28,6 @@ public class UserRestController {
     @GetMapping("/getById/{id}")
     public User getById(@PathVariable("id")Integer id){
         return service.findById(id);
+
     }
 }
