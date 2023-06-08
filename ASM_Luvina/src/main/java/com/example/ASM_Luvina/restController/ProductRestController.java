@@ -24,7 +24,7 @@ public class ProductRestController {
         Product pro = productService.findById(id);
         return pro;
     }
-    @PostMapping("")
+    @PostMapping("/add")
     public Product createProduct(@RequestBody Product pro)  {
            return productService.add(pro);
     }

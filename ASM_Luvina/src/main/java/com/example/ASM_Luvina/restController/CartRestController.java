@@ -3,10 +3,7 @@ package com.example.ASM_Luvina.restController;
 import com.example.ASM_Luvina.entity.Cart;
 import com.example.ASM_Luvina.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,8 +13,20 @@ import java.util.List;
 public class CartRestController {
     @Autowired
     CartService service;
-    @GetMapping("/hien-thi")
+    @GetMapping("")
     public List<Cart> getCartList(){
         return service.getAll();
+    }
+    @PostMapping("/add")
+    public Cart saveAndUpdate(@RequestBody Cart cart){
+        return service.saveAngUpdate(cart);
+    }
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") Integer id){
+        service.delete(id);
+    }
+    @GetMapping("/getById/{id}")
+    public Cart getCartById(@PathVariable("id") Integer id){
+        return service.findById(id);
     }
 }

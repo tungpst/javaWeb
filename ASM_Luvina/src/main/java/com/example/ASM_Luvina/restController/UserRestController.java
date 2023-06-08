@@ -13,7 +13,7 @@ import java.util.List;
 public class UserRestController {
     @Autowired
     UserService service;
-    @GetMapping("hien-thi")
+    @GetMapping("")
     public List<User> getAll(){
         return service.findAll();
     }

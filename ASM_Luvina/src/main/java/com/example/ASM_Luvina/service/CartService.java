@@ -14,4 +14,13 @@ public class CartService {
     public List<Cart> getAll(){
         return cartRepo.findAll();
     }
+    public Cart saveAngUpdate(Cart cart){
+        return cartRepo.save(cart);
+    }
+    public void delete(Integer id){
+        cartRepo.deleteById(id);
+    }
+    public Cart findById(Integer id){
+        return cartRepo.findById(id).get();
+    }
 }
