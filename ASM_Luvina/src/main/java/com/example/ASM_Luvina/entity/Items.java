@@ -1,8 +1,6 @@
 package com.example.ASM_Luvina.entity;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +11,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "items")
 public class Items {
-    @EmbeddedId
-    private IdItems id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart_id;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product_id;
+    private Integer quantity;
 }
