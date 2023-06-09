@@ -2,6 +2,7 @@ package com.example.ASM_Luvina.restController;
 
 import com.example.ASM_Luvina.dto.CartDTO;
 import com.example.ASM_Luvina.entity.Items;
+import com.example.ASM_Luvina.entity.Product;
 import com.example.ASM_Luvina.repository.ItemsRepo;
 import com.example.ASM_Luvina.service.ItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/shopping")
 public class ItemsRestController {
@@ -22,12 +23,16 @@ public class ItemsRestController {
         return itemsRepo.findAll();
     }
     @PostMapping("/add")
-    public ResponseEntity<Items> addToCart (@RequestBody CartDTO cartDTO){
+    public ResponseEntity<Items> addToCart (@RequestBody Product cartDTO){
         Items productItem = addToCartService.addToCart(cartDTO);
         if(productItem == null){
             throw new IllegalStateException("Thêm sản phẩm vào giỏ hàng thất bại");
         }
         return ResponseEntity.ok(productItem);
+    }
+    @PostMapping("/addd")
+    public Items add(@RequestBody Items items){
+        return itemsRepo.save(items);
     }
     @PutMapping("/edit/{id}")
     public ResponseEntity<Items> editProduct(@RequestBody CartDTO cartDTO, @PathVariable int id){
@@ -39,13 +44,14 @@ public class ItemsRestController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteProductToCart(@PathVariable int id){
-        Boolean result = addToCartService.deleteProductToCart(id);
-        String msg;
-        if (result){
-            msg = "xoá sản phẩm khỏi giỏ hàng thành công";
-            return ResponseEntity.ok(msg);
-        }
-        return ResponseEntity.ok("Xoá sản phẩm thất bại");
+    public void deleteProductToCart(@PathVariable int id){
+//        Boolean result = addToCartService.deleteProductToCart(id);
+//        String msg;
+//        if (result){
+//            msg = "xoá sản phẩm khỏi giỏ hàng thành công";
+//            return ResponseEntity.ok(msg);
+//        }
+//        return ResponseEntity.ok("Xoá sản phẩm thất bại");
+        addToCartService.deleteById(id);
     }
 }

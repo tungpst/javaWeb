@@ -20,11 +20,11 @@ public class ItemsService {
     private CartRepo cartRepository;
     @Autowired
     private UserRepo userRepo;
-    public Items addToCart(CartDTO cartDTO){
+    public Items addToCart(Product cartDTO){
 
         Items productItem = new Items();
 
-        Product product = productRepo.findById(cartDTO.getProduct().getId()).get();
+        Product product = productRepo.findById(cartDTO.getId()).get();
 
         Items item = productItemRepository.findByProduct_id(product.getId());
 
@@ -63,6 +63,12 @@ public class ItemsService {
             return true;
         }
         return false;
+    }
+    public void deleteById(Integer id){
+        productItemRepository.deleteById(id);
+    }
+    public Items save(Items items){
+        return productItemRepository.save(items);
     }
 }
 
