@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,4 +22,6 @@ public class Cart {
     @JoinColumn(name = "user_id")
 //    @JsonBackReference
     private User user_id;
+    @OneToMany(mappedBy = "cart_id",cascade = CascadeType.ALL)
+    private Set<Items> items;
 }

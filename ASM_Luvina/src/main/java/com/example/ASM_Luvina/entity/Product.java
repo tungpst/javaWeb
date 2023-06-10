@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +22,6 @@ public class Product {
     private int quantity;
     private BigDecimal price;
     private String description;
+    @OneToMany(mappedBy = "product_id",cascade = CascadeType.ALL)
+    private Set<Items> items;
 }
